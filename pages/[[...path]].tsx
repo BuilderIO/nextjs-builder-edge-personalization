@@ -7,20 +7,27 @@ import DefaultErrorPage from 'next/error'
 import Head from 'next/head'
 import { resolveBuilderContent } from '@lib/resolve-builder-content'
 import { Link } from '@components/Link/Link'
-import { Fab, Action } from 'react-tiny-fab';
-import 'react-tiny-fab/dist/styles.css';
+import { Fab, Action } from 'react-tiny-fab'
+import 'react-tiny-fab/dist/styles.css'
 import Cookies from 'js-cookie'
-import { AiFillCalculator, AiOutlineMan, AiOutlineWoman, AiOutlinePropertySafety } from 'react-icons/ai';
-import { targetingAttributes } from '@lib/constants'
-import { useEffect } from 'react'
+import {
+  AiFillCalculator,
+  AiOutlineMan,
+  AiOutlineWoman,
+  AiOutlinePropertySafety,
+} from 'react-icons/ai'
 import { getTargetingCookies } from '@lib/cookie-utils'
 
 export async function getStaticProps({
   params,
-}: GetStaticPropsContext<{ path: string[]}>) {
-  const page = await resolveBuilderContent('page', {
-    urlPath: '/' + (params?.path?.join('/') || '')
-  }, true)
+}: GetStaticPropsContext<{ path: string[] }>) {
+  const page = await resolveBuilderContent(
+    'page',
+    {
+      urlPath: '/' + (params?.path?.join('/') || ''),
+    },
+    true
+  )
 
   return {
     props: {
@@ -37,47 +44,30 @@ export async function getStaticPaths() {
   const pages = await builder.getAll('page', {
     options: { noTargeting: true },
     apiKey: builderConfig.apiKey,
-  }) 
+  })
 
   return {
-    paths: pages.reduce((acc: any[], page) => {
-      // unique by url, since we'll be generating the other variation under /builder
-      const found = acc.find(path => path.params.path === page.data?.url);
-      if (found) {
-        return acc;
-      }
-      return [
-        ...acc,
-        {
-          params: {
-            path: page.data?.url.split('/'),
-          }
-        },
-      ]
-    } ,[]),
+    // new set ensure unique urls, as there could be multiple pages on the same url, variations will be handled by middlewar
+    paths: [...new Set(pages.map((page) => `${page.data?.url}`))],
     fallback: true,
   }
 }
 
-
 export default function Path({
   page,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
-  
   const router = useRouter()
-  const setCookie= (name: string, val: string) => () => {
-    Cookies.set(`builder.userAttributes.${name}`, val);
-    router.reload();
+  const setCookie = (name: string, val: string) => () => {
+    Cookies.set(`builder.userAttributes.${name}`, val)
+    router.reload()
   }
 
-
-  const reset = ()=> {
-    const cookies = getTargetingCookies();
-    cookies.forEach((cookie) => Cookies.remove(cookie));
-    router.reload();
+  const reset = () => {
+    const cookies = getTargetingCookies()
+    cookies.forEach((cookie) => Cookies.remove(cookie))
+    router.reload()
   }
-  
-  
+
   if (router.isFallback) {
     return <h1>Loading...</h1>
   }
@@ -118,31 +108,18 @@ export default function Path({
         }}
       />
       <BuilderComponent renderLink={Link} model="page" content={page} />
-      <Fab
-  icon={<AiFillCalculator />}
->
-  <Action
-      text="Female"
-      onClick={setCookie('gender', 'female')}
-    >
-    <AiOutlineWoman></AiOutlineWoman>
-  </Action>
-  <Action
-      text="Male"
-      onClick={setCookie('gender', 'male')}
-    >
-    <AiOutlineMan></AiOutlineMan>
-  </Action>
-  
-  <Action
-      text="Reset"
-      onClick={reset}
-    >
-    <AiOutlinePropertySafety></AiOutlinePropertySafety>
-  </Action>
+      <Fab icon={<AiFillCalculator />}>
+        <Action text="Female" onClick={setCookie('gender', 'female')}>
+          <AiOutlineWoman></AiOutlineWoman>
+        </Action>
+        <Action text="Male" onClick={setCookie('gender', 'male')}>
+          <AiOutlineMan></AiOutlineMan>
+        </Action>
 
-</Fab>
-
+        <Action text="Reset" onClick={reset}>
+          <AiOutlinePropertySafety></AiOutlinePropertySafety>
+        </Action>
+      </Fab>
     </>
   )
 }
