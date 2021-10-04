@@ -7,12 +7,17 @@ import DefaultErrorPage from 'next/error'
 import Head from 'next/head'
 import { resolveBuilderContent } from '@lib/resolve-builder-content'
 import { Link } from '@components/Link/Link'
+import { Fab, Action } from 'react-tiny-fab';
+import 'react-tiny-fab/dist/styles.css';
+import Cookies from 'js-cookie'
+import { AiFillCalculator, AiOutlineMan, AiOutlineWoman, AiOutlinePropertySafety } from 'react-icons/ai';
+import { targetingAttributes } from '@lib/constants'
 
 export async function getStaticProps({
   params,
-}: GetStaticPropsContext<{ path: string[] }>) {
+}: GetStaticPropsContext<{ path: string[]}>) {
   const page = await resolveBuilderContent('page', {
-    urlPath: '/' + (params?.path?.join('/') || ''),
+    urlPath: '/' + (params?.path?.join('/') || '')
   })
 
   return {
@@ -30,18 +35,46 @@ export async function getStaticPaths() {
   const pages = await builder.getAll('page', {
     options: { noTargeting: true },
     apiKey: builderConfig.apiKey,
-  })
+  }) 
 
   return {
-    paths: pages.map((page) => `${page.data?.url}`),
+    paths: pages.reduce((acc: any[], page) => {
+      // unique by url, since we'll be generating the other variation under /builder
+      const found = acc.find(path => path.params.path === page.data?.url);
+      if (found) {
+        return acc;
+      }
+      return [
+        ...acc,
+        {
+          params: {
+            path: page.data?.url.split('/'),
+          }
+        },
+      ]
+    } ,[]),
     fallback: true,
   }
 }
 
+
 export default function Path({
   page,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
+  
   const router = useRouter()
+  const setCookie= (name: string, val: string) => () => {
+    Cookies.set(`builder.userAttributes.${name}`, val);
+    router.reload();
+  }
+
+  const reset = ()=> {
+    Object.keys(Cookies.get()).filter(cookie => cookie.startsWith('builder.userAttributes')).forEach(cookie => {
+      Cookies.remove(cookie);
+    });
+    router.reload();
+  }
+  
   if (router.isFallback) {
     return <h1>Loading...</h1>
   }
@@ -82,6 +115,31 @@ export default function Path({
         }}
       />
       <BuilderComponent renderLink={Link} model="page" content={page} />
+      <Fab
+  icon={<AiFillCalculator />}
+>
+  <Action
+      text="Female"
+      onClick={setCookie('gender', 'female')}
+    >
+    <AiOutlineWoman></AiOutlineWoman>
+  </Action>
+  <Action
+      text="Male"
+      onClick={setCookie('gender', 'male')}
+    >
+    <AiOutlineMan></AiOutlineMan>
+  </Action>
+  
+  <Action
+      text="Reset"
+      onClick={reset}
+    >
+    <AiOutlinePropertySafety></AiOutlinePropertySafety>
+  </Action>
+
+</Fab>
+
     </>
   )
 }
