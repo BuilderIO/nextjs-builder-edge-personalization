@@ -11,7 +11,7 @@ export async function getStaticProps({
 }: GetStaticPropsContext<{ path: string[], targeting?: any}>) {
   const page = await resolveBuilderContent('page', {
     ...getTargetingValues(params?.path!)
-  })
+  }, true)
 
   return {
     props: {

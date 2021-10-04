@@ -12,13 +12,15 @@ import 'react-tiny-fab/dist/styles.css';
 import Cookies from 'js-cookie'
 import { AiFillCalculator, AiOutlineMan, AiOutlineWoman, AiOutlinePropertySafety } from 'react-icons/ai';
 import { targetingAttributes } from '@lib/constants'
+import { useEffect } from 'react'
+import { getTargetingCookies } from '@lib/cookie-utils'
 
 export async function getStaticProps({
   params,
 }: GetStaticPropsContext<{ path: string[]}>) {
   const page = await resolveBuilderContent('page', {
     urlPath: '/' + (params?.path?.join('/') || '')
-  })
+  }, true)
 
   return {
     props: {
@@ -68,12 +70,13 @@ export default function Path({
     router.reload();
   }
 
+
   const reset = ()=> {
-    Object.keys(Cookies.get()).filter(cookie => cookie.startsWith('builder.userAttributes')).forEach(cookie => {
-      Cookies.remove(cookie);
-    });
+    const cookies = getTargetingCookies();
+    cookies.forEach((cookie) => Cookies.remove(cookie));
     router.reload();
   }
+  
   
   if (router.isFallback) {
     return <h1>Loading...</h1>
