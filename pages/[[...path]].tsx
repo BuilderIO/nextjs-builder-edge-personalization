@@ -7,16 +7,6 @@ import DefaultErrorPage from 'next/error'
 import Head from 'next/head'
 import { resolveBuilderContent } from '@lib/resolve-builder-content'
 import { Link } from '@components/Link/Link'
-import { Fab, Action } from 'react-tiny-fab'
-import 'react-tiny-fab/dist/styles.css'
-import Cookies from 'js-cookie'
-import {
-  AiFillCalculator,
-  AiOutlineMan,
-  AiOutlineWoman,
-  AiOutlinePropertySafety,
-} from 'react-icons/ai'
-import { getTargetingCookies } from '@lib/cookie-utils'
 
 export async function getStaticProps({
   params,
@@ -57,16 +47,6 @@ export default function Path({
   page,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   const router = useRouter()
-  const setCookie = (name: string, val: string) => () => {
-    Cookies.set(`builder.userAttributes.${name}`, val)
-    router.reload()
-  }
-
-  const reset = () => {
-    const cookies = getTargetingCookies()
-    cookies.forEach((cookie) => Cookies.remove(cookie))
-    router.reload()
-  }
 
   if (router.isFallback) {
     return <h1>Loading...</h1>
@@ -77,7 +57,6 @@ export default function Path({
       <>
         <Head>
           <meta name="robots" content="noindex" />
-          <meta name="title"></meta>
         </Head>
         <DefaultErrorPage statusCode={404} />
       </>
@@ -108,18 +87,6 @@ export default function Path({
         }}
       />
       <BuilderComponent renderLink={Link} model="page" content={page} />
-      <Fab icon={<AiFillCalculator />}>
-        <Action text="Female" onClick={setCookie('gender', 'female')}>
-          <AiOutlineWoman></AiOutlineWoman>
-        </Action>
-        <Action text="Male" onClick={setCookie('gender', 'male')}>
-          <AiOutlineMan></AiOutlineMan>
-        </Action>
-
-        <Action text="Reset" onClick={reset}>
-          <AiOutlinePropertySafety></AiOutlinePropertySafety>
-        </Action>
-      </Fab>
     </>
   )
 }

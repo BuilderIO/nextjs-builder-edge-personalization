@@ -1,25 +1,24 @@
 import type { AppProps } from 'next/app'
-
 import { builder, Builder } from '@builder.io/react'
 import builderConfig from '@config/builder'
 import '@assets/index.css'
-import { getTargetingCookies } from '@lib/cookie-utils'
 import Cookies from 'js-cookie'
+import { initUserAttributes } from '@builder.io/personalization-utils/dist/init-user-attributes'
+// TODO: dynamic
+import { Configurator } from '@builder.io/personalization-utils/dist/configurator';
+import '@szhsin/react-menu/dist/index.css'
+import '@szhsin/react-menu/dist/transitions/slide.css'
 
-if (Builder.isBrowser) {
-  const targeting = getTargetingCookies().reduce((acc, cookie) => {
-    const value = Cookies.get(cookie)
-    const key = cookie.split('builder.userAttributes.')[1]
-    return {
-      ...acc,
-      [key]: value,
-    }
-  }, {})
-  builder.setUserAttributes(targeting)
-}
+
+initUserAttributes(Cookies.get())
 
 builder.init(builderConfig.apiKey)
 
 export default function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+  return (
+    <>
+      {' '}
+      <Component {...pageProps} /> <Configurator></Configurator>
+    </>
+  )
 }

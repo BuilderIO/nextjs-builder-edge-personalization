@@ -1,6 +1,6 @@
 import type { GetStaticPropsContext } from 'next'
 import Path from '../[[...path]]'
-import { getPersonalizedPage } from '@lib/edge-personalization/get-personalized-page'
+import { getPersonalizedPage } from '@builder.io/personalization-utils'
 import builderConfig from '@config/builder'
 
 export async function getStaticProps({

@@ -44,7 +44,10 @@
     ]
   },
   "dependencies": {
+    "@builder.io/personalization-utils": "0.0.5-8",
     "@builder.io/react": "^1.1.42",
+    "@builder.io/utils": "^1.0.4",
+    "@szhsin/react-menu": "^2.1.0",
     "@types/js-cookie": "^3.0.0",
     "@vercel/fetch": "^6.1.0",
     "atob": "^2.1.2",
