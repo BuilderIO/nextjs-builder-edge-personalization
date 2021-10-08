@@ -44,7 +44,7 @@
     ]
   },
   "dependencies": {
-    "@builder.io/personalization-utils": "0.0.5-8",
+    "@builder.io/personalization-utils": "0.0.5-10",
     "@builder.io/react": "^1.1.42",
     "@builder.io/utils": "^1.0.4",
     "@szhsin/react-menu": "^2.1.0",
