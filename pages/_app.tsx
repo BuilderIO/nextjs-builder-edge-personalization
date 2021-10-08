@@ -5,10 +5,9 @@ import '@assets/index.css'
 import Cookies from 'js-cookie'
 import { initUserAttributes } from '@builder.io/personalization-utils/dist/init-user-attributes'
 // TODO: dynamic
-import { Configurator } from '@builder.io/personalization-utils/dist/configurator';
-import '@szhsin/react-menu/dist/index.css'
-import '@szhsin/react-menu/dist/transitions/slide.css'
+import dynamic from 'next/dynamic';
 
+const AsyncContextMenu = dynamic<any>(() => import('@components/ContextMenu').then(mod => mod.ConfiguratorContextMenu), { ssr: false})
 
 initUserAttributes(Cookies.get())
 
@@ -17,8 +16,8 @@ builder.init(builderConfig.apiKey)
 export default function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
-      {' '}
-      <Component {...pageProps} /> <Configurator></Configurator>
+      <Component {...pageProps} />
+      <AsyncContextMenu />
     </>
   )
 }
