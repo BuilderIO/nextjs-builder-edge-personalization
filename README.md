@@ -84,7 +84,7 @@ To connect your Builder.io space and your application, set the site URL and get 
 Do the same for your private key
 
     ```shell
-    BUILDER_PRIVATE_KEY=bpk-xxxxx <-- replace this with your API Key
+    BUILDER_PRIVATE_KEY=xxx-xxxxx <-- replace this with your private API Key
     ```
 
 
