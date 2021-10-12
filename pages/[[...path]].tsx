@@ -5,19 +5,20 @@ import { BuilderComponent, Builder, builder } from '@builder.io/react'
 import builderConfig from '@config/builder'
 import DefaultErrorPage from 'next/error'
 import Head from 'next/head'
-import { resolveBuilderContent } from '@lib/resolve-builder-content'
 import { Link } from '@components/Link/Link'
 
 export async function getStaticProps({
   params,
 }: GetStaticPropsContext<{ path: string[] }>) {
-  const page = await resolveBuilderContent(
-    'page',
-    {
-      urlPath: '/' + (params?.path?.join('/') || ''),
-    },
-    true
-  )
+  const page =
+    (await builder
+      .get('page', {
+        userAttributes: {
+          urlPath: '/' + (params?.path?.join('/') || ''),
+        },
+        cachebust: true,
+      })
+      .toPromise()) || null
 
   return {
     props: {

@@ -1,16 +1,22 @@
 import type { GetStaticPropsContext } from 'next'
 import Path from '../[[...path]]'
-import { getPersonalizedPage } from '@builder.io/personalization-utils'
 import builderConfig from '@config/builder'
+import { builder } from '@builder.io/sdk'
+import { getTargetingValues } from '@builder.io/personalization-utils'
 
 export async function getStaticProps({
   params,
 }: GetStaticPropsContext<{ path: string[] }>) {
-  const page = await getPersonalizedPage(
-    params?.path!,
-    'page',
-    builderConfig.apiKey
-  )
+  // getting the personalized page based on middleware generated rewrite
+  const page =
+    (await builder
+      .get('page', {
+        userAttributes: getTargetingValues(params?.path!),
+        apiKey: builderConfig.apiKey,
+        cachebust: true,
+      })
+      .toPromise()) || null
+
   return {
     props: {
       page,
