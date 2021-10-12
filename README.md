@@ -1,4 +1,4 @@
-# Next.js + Builder.io Minimal Starter
+# Next.js + Builder.io Personalization Starter
 
 This example walks you through using Builder.io with a minimal Next.js application.
 
@@ -7,42 +7,14 @@ This example walks you through using Builder.io with a minimal Next.js applicati
 Before using this example, make sure you have the following:
 
 * A [Builder.io](builder.io) account. Check out the [plans](https://www.builder.io/m/pricing), which range from our free tier to custom.
-* [npm](https://www.npmjs.com/)
-
-A basic understanding of the following is helpful too:
-* The [command line](https://developer.mozilla.org/en-US/docs/Learn/Tools_and_testing/Understanding_client-side_tools/Command_line)
-* JavaScript and [React](https://reactjs.org/).
-* [Next.js](https://nextjs.org/)
-* What it means to [clone a GitHub repo](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository)
-
+* Save private key / public key from your space in 
 ## Overview
 
 To use this project, you need to  do three things:
 
 1. Get a copy of this repo. 
 1. Create a corresponding space in your account on [Builder.io](builder.io).
-1. Connect the two.
-
-The next sections walk you through each step.
-
-### Clone this project
-
-This example provides you with a ready-made application that you can copy locally and configure for use with your Builder.io account.
-
-1. At the command line, run the following command to create a local copy of the Builder.io repo: 
-
-    ```shell
-    git clone https://github.com/BuilderIO/builder.git
-    ```
-
-1. Change into the example application by using the `cd` command:
-
-    ```shell
-    cd builder/examples/next-js-simple
-    ```
-
-1. Open this directory in your favorite code editor. 
-   You'll come back here when you're ready to connect your application to your Builder space.
+1. Connect the two using the space's private and public keys.
 
 
 ### Generating your Builder.io space
@@ -109,6 +81,13 @@ To connect your Builder.io space and your application, set the site URL and get 
     BUILDER_PUBLIC_KEY=08837cee608a405c806a3bed69acfe2d <-- replace this with your API Key
     ```
 
+Do the same for your private key
+
+    ```shell
+    BUILDER_PRIVATE_KEY=xxx-xxxxx <-- replace this with your private API Key
+    ```
+
+
 ## Running your application
 
 To serve your application locally, install dependencies, serve, and view your preview. 
@@ -134,10 +113,20 @@ Create a new page entry, assign any URL, publish and preview.
 For more detail and ideas on creating pages, see [Creating a landing page in Builder
 ](https://www.builder.io/c/docs/creating-a-landing-page).
 
-### Deploy
+*Create custom targeting attributes)[https://www.builder.io/c/docs/guides/targeting-and-scheduling#custom-targeting]
 
-You can deploy anywhere you like, but for this project we recommend [Vercel](https://nextjs.org/docs/deployment).
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https%3A%2F%2Fgithub.com%2Fbuilderio%2Fbuilder%2Ftree%2Fmaster%2Fexamples%2Fnext-js-simple)
+## Demo
+
+https://nextjs-builder-edge-personalization.vercel.app/
+
+[hold ctrl + right click to show all the different personalization options from your space]
+
+### One-Click Deploy
+
+Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme):
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FBuilderIO%2Fnextjs-builder-edge-personalization&env=BUILDER_PUBLIC_KEY,BUILDER_PRIVATE_KEY&project-name=personalization-edge&repo-name=personalizatin-edge)
+
 
 
 ## Next steps
