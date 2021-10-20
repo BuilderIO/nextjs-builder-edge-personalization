@@ -1,8 +1,5 @@
-const bundleAnalyzer = require('@next/bundle-analyzer')({
-  enabled: !!process.env.BUNDLE_ANALYZE,
-})
 
-module.exports = bundleAnalyzer({
+module.exports = {
   images: {
     domains: ['cdn.builder.io'],
   },
@@ -24,4 +21,4 @@ module.exports = bundleAnalyzer({
     // expose env to the browser
     BUILDER_PUBLIC_KEY: process.env.BUILDER_PUBLIC_KEY,
   },
-})
+}

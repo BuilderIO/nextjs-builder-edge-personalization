@@ -7,7 +7,7 @@ import {
   initUserAttributes,
   AsyncConfigurator,
 } from '@builder.io/personalization-utils/dist/browser'
-// needed for context menu styling
+// only needed for context menu styling
 import '@szhsin/react-menu/dist/index.css'
 import '@szhsin/react-menu/dist/transitions/slide.css'
 

@@ -6,16 +6,24 @@ import builderConfig from '@config/builder'
 import DefaultErrorPage from 'next/error'
 import Head from 'next/head'
 import { Link } from '@components/Link/Link'
+import { getTargetingValues } from '@builder.io/personalization-utils'
 
 export async function getStaticProps({
   params,
 }: GetStaticPropsContext<{ path: string[] }>) {
+  const isPersonalizedRequest = params?.path?.[0].startsWith(';')
   const page =
     (await builder
       .get('page', {
-        userAttributes: {
-          urlPath: '/' + (params?.path?.join('/') || ''),
-        },
+        apiKey: builderConfig.apiKey,
+        userAttributes: isPersonalizedRequest
+          ? {
+              // if it's a personalized page let's fetch it:
+              ...getTargetingValues(params!.path[0].split(';').slice(1)),
+            }
+          : {
+              urlPath: '/' + (params?.path?.join('/') || ''),
+            },
         cachebust: true,
       })
       .toPromise()) || null

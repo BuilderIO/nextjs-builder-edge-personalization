@@ -1,23 +1,19 @@
-import type { EdgeRequest, EdgeResponse, EdgeNext } from 'next'
+import { NextFetchEvent, NextResponse } from 'next/server'
 import { getPersonalizedRewrite } from '@builder.io/personalization-utils'
 
-export default function middleware(
-  req: EdgeRequest,
-  res: EdgeResponse,
-  next: EdgeNext
-) {
-  if (
-    req.url?.pathname.includes("favicon") ||
-    req.url?.pathname.includes("api")
-  ) {
-    return next();
-  }
+const excludededPrefixes = ['/favicon', '/api']
 
-  const rewrite = getPersonalizedRewrite(req.url?.pathname!, req.cookies);
-
-  if (rewrite) {
-    res.rewrite(rewrite);
-  } else {
-    next();
+export default function middleware(event: NextFetchEvent) {
+  const url = event.request.nextUrl
+  let response = NextResponse.next()
+  if (!excludededPrefixes.find((path) => url.pathname?.startsWith(path))) {
+    const rewrite = getPersonalizedRewrite(
+      url?.pathname!,
+      event.request.cookies
+    )
+    if (rewrite) {
+      response = NextResponse.rewrite(rewrite)
+    }
   }
+  event.respondWith(response)
 }
