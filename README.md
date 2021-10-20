@@ -45,7 +45,7 @@ For this example, click **Add Builder to an existing site or app**.
 
 1. Click **Add Builder to an existing site or app**.
 
-1. When Builder asks you which ecommerce platform you use, select **None**.
+1. When Builder asks you which e-commerce platform you use, select **None**.
 
 1. Name your new space by entering "My Next.js App" and click **Create**.
 
@@ -54,7 +54,7 @@ For this example, click **Add Builder to an existing site or app**.
     <figcaption style="text-align: center">Enter a name for your new space, such as "My Next.js App".</figcaption>
 </figure>
 
-Now that you have a new space, the next step is connecting "My Next.js App" with your application.
+Now that you have a new space, the next step is connecting this space with your next.js application.
 
 ### Connecting Builder.io to your application
 
@@ -108,12 +108,11 @@ To serve your application locally, install dependencies, serve, and view your pr
 
 ### Experimenting
 
-Now that you have a configured Builder.io application, you can try different features, such as creating a page.
-Create a new page entry, assign any URL, publish and preview.
+Now that you have a configured Builder.io space and a running application, start by creating a page, assign any URL, publish and preview.
 For more detail and ideas on creating pages, see [Creating a landing page in Builder
 ](https://www.builder.io/c/docs/creating-a-landing-page).
 
-*Create custom targeting attributes)[https://www.builder.io/c/docs/guides/targeting-and-scheduling#custom-targeting]
+*[Create custom targeting attributes](https://www.builder.io/c/docs/guides/targeting-and-scheduling#custom-targeting), those targeting attributes can be used when creating new content specific for a target audience.
 
 ## Demo
 
