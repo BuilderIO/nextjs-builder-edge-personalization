@@ -1,6 +1,6 @@
 # Next.js + Builder.io Personalization Starter
 
-This example walks you through using Builder.io with a minimal Next.js application.
+This example walks you through personalizing statically generated landing pages with Builder.io and Next.js.
 
 ## Prerequisites
 
