@@ -1,4 +1,4 @@
-import { NextFetchEvent, NextResponse, NextRequest } from 'next/server'
+import { NextResponse, NextRequest } from 'next/server'
 import { getPersonalizedRewrite } from '@builder.io/personalization-utils'
 
 const excludededPrefixes = ['/favicon', '/api']
