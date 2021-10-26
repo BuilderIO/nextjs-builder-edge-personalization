@@ -124,7 +124,7 @@ https://nextjs-builder-edge-personalization.vercel.app/
 
 Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme):
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FBuilderIO%2Fnextjs-builder-edge-personalization&env=BUILDER_PUBLIC_KEY,BUILDER_PRIVATE_KEY&project-name=personalization-edge&repo-name=personalizatin-edge)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FBuilderIO%2Fnextjs-builder-edge-personalization&env=BUILDER_PUBLIC_KEY,BUILDER_PRIVATE_KEY,FORCE_RUNTIME_TAG&project-name=personalization-edge&repo-name=personalizatin-edge)
 
 
 
