@@ -2,6 +2,10 @@
 
 This example walks you through personalizing statically generated landing pages with Builder.io and Next.js.
 
+## Quick start
+Watch here as we go through deploying this to vercel and creating personalized content with Builder.io
+https://www.loom.com/share/9706fe2c5c1e496c861f1ba9b6ac829c
+
 ## Prerequisites
 
 Before using this example, make sure you have the following:
