@@ -10,6 +10,7 @@ import {
 // only needed for context menu styling
 import '@szhsin/react-menu/dist/index.css'
 import '@szhsin/react-menu/dist/transitions/slide.css'
+import '@builder.io/widgets';
 
 builder.init(builderConfig.apiKey)
 initUserAttributes(Cookies.get())
