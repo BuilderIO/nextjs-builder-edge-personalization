@@ -1,6 +1,6 @@
 # Next.js + Builder.io Personalization Starter
 
-This example walks you through personalizing statically generated landing pages with Builder.io and Next.js.
+This example walks you through [personalizing statically generated landing pages with Builder.io and Next.js.](https://www.builder.io/blog/fast-personalization-nextjs-edge-middleware-builder)
 
 ## Quick start
 Watch here as we go through deploying this to vercel and creating personalized content with Builder.io
