@@ -1,19 +1,28 @@
 import { NextResponse, NextRequest } from 'next/server'
-import { getPersonalizedRewrite } from '@builder.io/personalization-utils'
+import {
+  PersonalizedURL,
+  getUserAttributes
+} from '@builder.io/personalization-utils'
 
-const excludededPrefixes = ['/favicon', '/api']
+const personalizedPrefix = '/builder'
+const excludededPrefixes = ['/favicon', '/api', '/sw.js', personalizedPrefix]
 
 export default function middleware(request: NextRequest) {
   const url = request.nextUrl
   let response = NextResponse.next()
-  if (!excludededPrefixes.find((path) => url.pathname?.startsWith(path))) {
-    const rewrite = getPersonalizedRewrite(
-      url?.pathname!,
-      request.cookies
-    )
-    if (rewrite) {
-      response = NextResponse.rewrite(rewrite)
-    }
+  const usePath = url.pathname
+  if (!excludededPrefixes.find(path => usePath.startsWith(path))) {
+    const query = Object.fromEntries(url.searchParams)
+    const personlizedURL = new PersonalizedURL({
+      pathname: usePath,
+      attributes: {
+        ...getUserAttributes({ ...request.cookies, ...query }),
+        domain: request.headers.get('Host') || '',
+        country: request.geo?.country || '',
+      }
+    })
+    url.pathname = personlizedURL.rewritePath()
+    return NextResponse.rewrite(url)
   }
-  return response;
+  return response
 }

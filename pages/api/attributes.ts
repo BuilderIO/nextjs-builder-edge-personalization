@@ -1,4 +1,4 @@
-import { getAttributes } from '@builder.io/personalization-utils/dist/get-attributes'
+import { getAttributes } from '@builder.io/personalization-context-menu'
 import { NextApiRequest, NextApiResponse } from 'next'
 
 if (!process.env.BUILDER_PRIVATE_KEY) {
