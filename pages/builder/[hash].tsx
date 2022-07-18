@@ -12,13 +12,13 @@ import Head from 'next/head'
 import type { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { PersonalizedURL } from '@builder.io/personalization-utils'
 import { useEffect } from 'react'
-import '@builder.io/widgets'
+import '@builder.io/widgets/dist/lib/builder-widgets-async'
 
 builder.init(builderConfig.apiKey)
 
 export async function getStaticProps({ params } : GetStaticPropsContext<{ hash: string }>) {
-  const personlizedURL = PersonalizedURL.fromRewrite(params!.hash!)
-  const attributes = personlizedURL.options.attributes
+  const personlizedURL = PersonalizedURL.fromRewrite(params!.hash!);
+  const attributes = personlizedURL.options.attributes;
   const page =
     (await builder
       .get('page', {
