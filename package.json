@@ -1,8 +1,8 @@
 {
   "scripts": {
-    "dev": "yarn next dev",
-    "build": "yarn next build",
-    "start": "yarn next start"
+    "dev": "npm run next dev",
+    "build": "npm run next build",
+    "start": "npm run next start"
   },
   "dependencies": {
     "@builder.io/admin-sdk": "^0.1.0",
