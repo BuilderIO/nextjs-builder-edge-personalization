@@ -1,8 +1,11 @@
 {
   "scripts": {
-    "dev": "npm run next dev",
-    "build": "npm run next build",
-    "start": "npm run next start"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "analyze": "BUNDLE_ANALYZE=both yarn build",
+    "find:unused": "next-unused",
+    "prettier": "prettier"
   },
   "dependencies": {
     "@builder.io/admin-sdk": "^0.1.0",
