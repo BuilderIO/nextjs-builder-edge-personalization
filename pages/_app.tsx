@@ -6,7 +6,7 @@ import '../assets/index.css'
 // only needed for context menu styling
 import '@szhsin/react-menu/dist/index.css'
 import '@szhsin/react-menu/dist/transitions/slide.css'
-import '@builder.io/widgets'
+import '@builder.io/widgets/dist/lib/builder-widgets-async'
 
 builder.init(builderConfig.apiKey)
 
