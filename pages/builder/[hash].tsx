@@ -10,15 +10,14 @@ import builderConfig from '../../config/builder'
 import DefaultErrorPage from 'next/error'
 import Head from 'next/head'
 import type { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
-import { PersonalizedURL } from '@builder.io/personalization-utils'
+import { getUserAttributesFromHash } from '@builder.io/personalization-utils/dist/next'
 import { useEffect } from 'react'
 import '@builder.io/widgets/dist/lib/builder-widgets-async'
 
 builder.init(builderConfig.apiKey)
 
 export async function getStaticProps({ params } : GetStaticPropsContext<{ hash: string }>) {
-  const personlizedURL = PersonalizedURL.fromRewrite(params!.hash!);
-  const attributes = personlizedURL.options.attributes;
+  const attributes = getUserAttributesFromHash(params?.hash!)
   const page =
     (await builder
       .get('page', {
