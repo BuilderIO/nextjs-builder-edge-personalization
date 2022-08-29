@@ -10,7 +10,7 @@
   "dependencies": {
     "@builder.io/admin-sdk": "^0.1.0",
     "@builder.io/personalization-context-menu": "^0.0.3",
-    "@builder.io/personalization-utils": "^1.0.5-3",
+    "@builder.io/personalization-utils": "^1.0.5-6",
     "@builder.io/react": "2.0.2-7",
     "@builder.io/widgets": "1.2.22-7",
     "next": "^12.2.2",
