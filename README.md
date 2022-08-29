@@ -20,7 +20,6 @@ To use this project, you need to  do three things:
 1. Create a corresponding space in your account on [Builder.io](builder.io).
 1. Connect the two using the space's private and public keys.
 
-
 ### Generating your Builder.io space
 
 If you've just created your Builder.io account and logged in for the first time, Builder prompts you to create a space with a new Builder site or add Builder to an existing application. 
