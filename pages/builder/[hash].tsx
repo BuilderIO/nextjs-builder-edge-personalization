@@ -10,7 +10,7 @@ import builderConfig from '../../config/builder'
 import DefaultErrorPage from 'next/error'
 import Head from 'next/head'
 import type { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
-import { getUserAttributesFromHash } from '@builder.io/personalization-utils/dist/next'
+import { getUserAttributesFromHash } from '@builder.io/personalization-utils/next'
 import { useEffect } from 'react'
 import '@builder.io/widgets/dist/lib/builder-widgets-async'
 

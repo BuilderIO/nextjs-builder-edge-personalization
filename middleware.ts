@@ -1,7 +1,7 @@
 import { NextResponse, NextRequest } from 'next/server'
 import {
   getPersonlizedURL
-} from '@builder.io/personalization-utils/dist/next'
+} from '@builder.io/personalization-utils/next'
 
 const regex = /^(.+\.)/
 
