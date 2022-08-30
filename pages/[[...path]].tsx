@@ -6,23 +6,23 @@ import {
   builder,
   useIsPreviewing
 } from '@builder.io/react'
-import builderConfig from '../../config/builder'
+import builderConfig from '../config/builder'
 import DefaultErrorPage from 'next/error'
 import Head from 'next/head'
 import type { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
-import { getUserAttributesFromHash } from '@builder.io/personalization-utils/next'
+import { parsePersonalizedURL } from '@builder.io/personalization-utils/next'
 import { useEffect } from 'react'
 import '@builder.io/widgets/dist/lib/builder-widgets-async'
 
 builder.init(builderConfig.apiKey)
 
-export async function getStaticProps({ params } : GetStaticPropsContext<{ hash: string }>) {
-  const attributes = getUserAttributesFromHash(params?.hash!)
+export async function getStaticProps({ params } : GetStaticPropsContext<{ path: string[] }>) {
+  const { attributes } = parsePersonalizedURL(params?.path!);
   const page =
     (await builder
       .get('page', {
         apiKey: builderConfig.apiKey,
-        userAttributes: attributes,
+        userAttributes: attributes!,
         cachebust: true
       })
       .promise()) || null
@@ -31,7 +31,7 @@ export async function getStaticProps({ params } : GetStaticPropsContext<{ hash: 
     props: {
       page,
       attributes: attributes,
-      locale: attributes.locale || 'en-US'
+      locale: attributes!.locale || 'en-US'
     },
     // Next.js will attempt to re-generate the page:
     // - When a request comes in
@@ -52,7 +52,7 @@ export default function Path({ page, attributes, locale }: InferGetStaticPropsTy
   const isPreviewingInBuilder = useIsPreviewing()
 
   useEffect(() => {
-    builder.setUserAttributes(attributes)
+    builder.setUserAttributes(attributes!)
   }, [])
 
   if (router.isFallback) {
